@@ -1,79 +1,106 @@
-# GSDC Office Management System
+# RSD — Office Operations Management Platform
 
-**Ghufran Software Development Company — Office Management System**
+RSD is a MERN-stack application designed to simplify everyday office operations through a centralized workspace. It brings employee administration, department organization, project tracking, attendance, leave management, and other business activities into a single platform.
 
-A full-stack (MERN) office management platform for a software house. This repository
-contains a **working, runnable foundation** with a clean, scalable architecture that you
-can extend module by module.
+The project follows a modular architecture with separate frontend and backend applications. Its multi-tenant design is intended to support multiple organizations while keeping their data logically separated.
 
-> ### Read this first — honest scope note
-> The original brief describes a complete commercial SaaS with 20+ modules. That is
-> months of team work. What ships here is a **real, functional core** — not placeholders —
-> that runs end to end and is architected so every listed module works against live data.
-> Business-specific rules (e.g. payroll tax formulas, approval chains) are stubbed with
-> sensible defaults for you to refine. Nothing here is fake demo code; it all executes.
+RSD provides a foundation for developing an office management SaaS product that can be extended with additional modules, workflows, and organization-specific requirements.
 
-## What actually works today
-- JWT auth (login) with hashed passwords (bcrypt) and role-based access control (RBAC)
-- MongoDB models for every core entity (Employees, Departments, Projects, Clients,
-  Tasks, Milestones, TimeLogs, Attendance, Leaves, Payroll, Contracts, Meetings,
-  Assets, Notifications, Comments, ActivityLogs)
-- A generic CRUD controller factory → every module gets list/create/read/update/delete,
-  pagination, search, sort and filtering for free (no duplicated code)
-- Seed script that generates 123 employees across 13 departments with realistic
-  Pakistani names, salaries, contracts and joining dates
-- React 19 + Vite + Tailwind frontend: login, dashboard with charts, dark/light mode,
-  responsive sidebar layout, and config-driven data-table pages for every module
+## Features
 
-## Tech stack
-Frontend: React 19, Vite, Tailwind CSS, React Router, Axios, Recharts, Framer Motion, date-fns
-Backend: Node.js, Express, Mongoose, JWT, bcrypt, Helmet, CORS, Morgan, express-validator
+### Employee and Organization Management
+- Maintain employee profiles and organizational records.
+- Organize employees into departments.
+- Manage attendance information and leave-related records.
+- Store employment contracts and payroll-related data.
 
-## Prerequisites
-- Node.js 18+ and npm
-- MongoDB running locally (`mongodb://127.0.0.1:27017`) or a MongoDB Atlas URI
+### Project and Task Management
+- Organize projects and associated tasks.
+- Maintain client information.
+- Keep records of company assets.
+- Manage meeting-related information.
+- Support notifications and activity tracking where implemented.
 
-## Setup
+### Authentication and Access Control
+- JWT-based authentication.
+- Password hashing using bcryptjs.
+- Role-based access control where configured.
+- Request validation and centralized error-handling utilities.
 
-```bash
-# 1. Backend
-cd backend
-cp .env.example .env          # edit MONGO_URI / JWT_SECRET if needed
-npm install
-npm run seed                  # creates the 123-employee dataset + admin user
-npm run dev                   # starts API on http://localhost:5000
+### User Interface
+- React-based application with reusable components.
+- Dashboard and data-table interfaces.
+- Client-side navigation using React Router.
+- API communication through Axios.
+- Responsive layouts for desktop and smaller screens.
+- Data visualization and interface animations.
 
-# 2. Frontend (new terminal)
-cd frontend
-npm install
-npm run dev                   # starts app on http://localhost:5173
-```
+The actual availability of individual features depends on the current implementation in the repository.
 
-## Default login (created by the seed script)
-```
-Email:    admin@gsdc.com
-Password: Admin@123
-```
+## Technology Stack
 
-## Project structure
-```
-gsdc/
+### Frontend
+- React
+- Vite
+- React Router
+- Axios
+- Tailwind CSS
+- Recharts
+- Framer Motion
+- date-fns
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcryptjs
+- Helmet
+- CORS
+- Morgan
+- express-validator
+
+### Deployment
+- Vercel for frontend hosting
+- Render for backend hosting
+- MongoDB Atlas for database hosting
+
+## Architecture
+
+RSD uses a client-server architecture in which each component has a separate responsibility.
+
+- **Frontend:** Provides the application interface, navigation, forms, dashboards, and API integration.
+- **Backend:** Handles incoming requests, authentication, authorization, validation, and application logic.
+- **Database:** Stores application records using MongoDB and Mongoose.
+- **Multi-tenancy:** Uses tenant-aware data access as the basis for separating records belonging to different organizations.
+
+Tenant isolation depends on correctly implemented authorization checks and database queries. The implementation should be reviewed and tested before handling sensitive production data.
+
+## Project Structure
+
+```text
+RSD_SAAS_clean/
 ├── backend/
-│   └── src/
-│       ├── config/        # db + env
-│       ├── models/        # Mongoose schemas
-│       ├── controllers/   # crudFactory + custom controllers
-│       ├── routes/        # express routers
-│       ├── middleware/    # auth, rbac, error handling, validation
-│       ├── utils/         # ApiError, ApiResponse, asyncHandler, token
-│       └── seed/          # database seeder
-└── frontend/
-    └── src/
-        ├── context/       # Auth + Theme providers
-        ├── services/      # axios API layer
-        ├── components/    # Layout, Sidebar, DataTable, StatCard, ...
-        └── pages/         # Dashboard + one page per module
-```
-
-## License
-Provided as a foundation for Ghufran Software Development Company. Extend freely.
+│   ├── src/
+│   │   ├── config/          # Application and database configuration
+│   │   ├── models/          # Mongoose models and schemas
+│   │   ├── controllers/     # Request handlers and business logic
+│   │   ├── routes/          # API endpoint definitions
+│   │   ├── middleware/      # Authentication and request middleware
+│   │   ├── utils/            # Shared utilities
+│   │   └── seed/             # Database initialization scripts
+│   ├── tests/                # Backend tests
+│   ├── package.json
+│   └── Dockerfile
+├── frontend/
+│   ├── src/
+│   │   ├── context/          # Shared application state
+│   │   ├── services/         # API communication
+│   │   ├── components/       # Reusable UI components
+│   │   └── pages/            # Application screens
+│   ├── package.json
+│   └── vercel.json
+├── MULTI-TENANCY.md
+├── README.md
+└── package-lock.json
