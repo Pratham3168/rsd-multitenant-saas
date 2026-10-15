@@ -399,7 +399,7 @@ const run = async () => {
           dateOfBirth: randomDate(1990, 2002),
 
           // Synthetic demo identifier; not a real government ID
-          cnic: `DEMO-${pad(seq)}`,
+          aadhaarNumber: `DEMO-${pad(seq)}`,
 
           maritalStatus: rand(["Single", "Single", "Married"]),
           bloodGroup: rand(bloodGroups),
@@ -431,7 +431,7 @@ const run = async () => {
             "Jaipur",
             "Gurugram",
           ]),
-          province: "Punjab",
+          state: "Punjab",
 
           qualification: rand([
             "B.Tech Computer Science",
